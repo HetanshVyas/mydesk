@@ -1,0 +1,13 @@
+{
+  "name": "MyDesk",
+  "short_name": "MyDesk",
+  "description": "Your personal desk for tasks, goals, calendar, diary and insights.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#2a1b55",
+  "theme_color": "#2a1b55",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
