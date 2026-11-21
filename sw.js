@@ -1,5 +1,5 @@
 // Simple offline cache so the app opens even without internet.
-const CACHE = 'mydesk-v1';
+const CACHE = 'mydesk-v2';
 const FILES = ['./', './index.html', './manifest.webmanifest', './icon.svg'];
 
 self.addEventListener('install', e => {

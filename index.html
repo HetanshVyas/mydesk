@@ -15,7 +15,7 @@
 --grad:linear-gradient(165deg,#8a4f93 0%,#ec6a7d 32%,#e9708c 46%,#7b58a8 72%,#1a4a98 100%);
 --nav:rgba(22,14,52,.66);--card:rgba(28,19,64,.46);--sheet:#251b54;--ink:#fff;--mute:rgba(255,255,255,.72);--line:rgba(255,255,255,.16);--field:rgba(12,7,34,.4);
 --accent:#ff6b6b;--accent-ink:#fff;--accent-soft:rgba(255,255,255,.12);--lav:#a8a2ff;--lav-soft:rgba(168,162,255,.22);--orange:#ff9a62;
---sand:rgba(255,190,120,.24);--rose:rgba(255,107,107,.28);--sky:rgba(90,150,255,.3);--danger:#ffa0a0;--shadow:0 12px 40px rgba(12,6,40,.28);--blob:.85;color-scheme:dark}
+--sand:rgba(255,190,120,.24);--rose:rgba(255,107,107,.28);--sky:rgba(90,150,255,.3);--danger:#ffa0a0;--shadow:0 12px 40px rgba(12,6,40,.28);--blob:.85;--b1:#1b57c4;--b2:#5a4cb8;--glow:#ffb27a;color-scheme:dark}
 [data-theme=ocean]{--fb:#0b1f5c;--grad:linear-gradient(165deg,#0a1c58 0%,#1d4bbd 40%,#6f5cd0 74%,#e8708f 100%);--nav:rgba(5,13,50,.66);--card:rgba(6,17,66,.48);--sheet:#10205a;--accent:#ff7a59;--lav:#b6adff}
 [data-theme=light]{color-scheme:light;--fb:#f3e3ee;--grad:linear-gradient(165deg,#ffe4df 0%,#f6dcec 45%,#dbe3ff 100%);--nav:rgba(255,255,255,.6);--card:rgba(255,255,255,.72);--sheet:#fff;--ink:#241b4a;--mute:#6a6391;--line:rgba(60,40,120,.14);--field:rgba(255,255,255,.8);--accent:#f2565f;--accent-soft:rgba(80,60,160,.09);--lav:#6a63e0;--lav-soft:rgba(106,99,224,.14);--sand:rgba(255,170,90,.25);--rose:rgba(255,100,110,.2);--sky:rgba(70,130,255,.18);--danger:#d84a58;--shadow:0 10px 30px rgba(90,60,150,.12);--blob:.4}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -24,8 +24,8 @@ button,input,select,textarea{font:inherit;color:inherit}
 select option{color:#222;background:#fff}
 .bg{position:fixed;inset:0;z-index:-1;background:var(--grad);overflow:hidden}
 .bg i{position:absolute;display:block}
-.bg i:nth-child(1){width:70vmax;height:60vmax;left:-12vmax;top:16vh;background:linear-gradient(140deg,#1b57c4,#5a4cb8 55%,rgba(255,120,120,.35));border-radius:58% 42% 61% 39%/45% 55% 45% 55%;opacity:var(--blob);animation:drift 22s ease-in-out infinite alternate}
-.bg i:nth-child(2){width:50vmax;height:50vmax;right:-18vmax;top:-14vmax;background:radial-gradient(circle at 40% 40%,#ffb27a,rgba(255,107,107,0) 70%);opacity:.55;animation:drift 28s ease-in-out infinite alternate-reverse}
+.bg i:nth-child(1){width:70vmax;height:60vmax;left:-12vmax;top:16vh;background:linear-gradient(140deg,var(--b1),var(--b2) 55%,rgba(255,120,120,.35));border-radius:58% 42% 61% 39%/45% 55% 45% 55%;opacity:var(--blob);animation:drift 22s ease-in-out infinite alternate}
+.bg i:nth-child(2){width:50vmax;height:50vmax;right:-18vmax;top:-14vmax;background:radial-gradient(circle at 40% 40%,var(--glow),transparent 70%);opacity:.55;animation:drift 28s ease-in-out infinite alternate-reverse}
 @keyframes drift{to{transform:translate(6vmax,-4vmax) rotate(14deg) scale(1.08)}}
 .app{display:grid;grid-template-columns:240px 1fr;min-height:100vh}
 nav{position:sticky;top:0;height:100vh;padding:22px 14px;background:var(--nav);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-right:1px solid var(--line);display:flex;flex-direction:column;gap:2px;overflow:auto}
@@ -117,6 +117,33 @@ label.f>*:not(span){margin-top:5px}
 .empty{text-align:center;color:var(--mute);padding:20px}
 .spark{width:100%;height:60px}
 .toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:var(--accent);color:#fff;padding:10px 20px;border-radius:8px;font-size:14px;font-weight:600;z-index:90;animation:pop .3s both}
+
+[hidden]{display:none!important}
+[data-theme=midnight]{--fb:#0a0e1f;--grad:linear-gradient(165deg,#060916 0%,#0f1a40 50%,#1c1248 100%);--nav:rgba(4,7,20,.72);--card:rgba(20,28,64,.55);--sheet:#121a3c;--accent:#7c8cff;--orange:#ffcf70;--lav:#a3b1ff;--b1:#1a2a86;--b2:#3b2a96;--glow:#5a6cff;--blob:.7}
+[data-theme=forest]{--fb:#0b2a22;--grad:linear-gradient(165deg,#0a2a21 0%,#14614a 45%,#3f8f6b 78%,#c9b87a 100%);--nav:rgba(5,26,20,.68);--card:rgba(7,38,29,.52);--sheet:#0f3a2d;--accent:#f2a65a;--orange:#ffd27a;--lav:#9fe6c4;--b1:#0e6b50;--b2:#2a8a6e;--glow:#e8d98a}
+[data-theme=aurora]{--fb:#04202b;--grad:linear-gradient(165deg,#04202b 0%,#0b5f6b 38%,#5a3fa6 75%,#c05a9a 100%);--nav:rgba(3,22,32,.68);--card:rgba(5,32,46,.5);--sheet:#0a2e40;--accent:#2fd6b5;--accent-ink:#04202b;--orange:#ffd36b;--lav:#b9a8ff;--b1:#1aa3a0;--b2:#6a45c0;--glow:#ff7fc0}
+[data-theme=candy]{color-scheme:light;--fb:#ffe3ef;--grad:linear-gradient(165deg,#ffe3ef 0%,#ffd0e6 40%,#e3d4ff 100%);--nav:rgba(255,255,255,.6);--card:rgba(255,255,255,.72);--sheet:#fff;--ink:#3d1a47;--mute:#8a5f93;--line:rgba(120,40,120,.15);--field:rgba(255,255,255,.85);--accent:#ff5c9a;--accent-soft:rgba(160,60,160,.09);--orange:#ff7aa8;--lav:#9a5cf0;--lav-soft:rgba(154,92,240,.14);--sand:rgba(255,190,120,.28);--rose:rgba(255,92,154,.2);--sky:rgba(120,150,255,.22);--danger:#d8456f;--shadow:0 10px 30px rgba(160,60,140,.14);--b1:#ffb3d1;--b2:#c9a8ff;--glow:#fff;--blob:.6}
+[data-theme=mint]{color-scheme:light;--fb:#e3fbf0;--grad:linear-gradient(165deg,#e3fbf0 0%,#c9f0e0 45%,#d9e8ff 100%);--nav:rgba(255,255,255,.62);--card:rgba(255,255,255,.74);--sheet:#fff;--ink:#12392e;--mute:#4f7c6d;--line:rgba(10,80,60,.15);--field:rgba(255,255,255,.85);--accent:#1fa97a;--accent-soft:rgba(20,110,80,.09);--orange:#ffa94d;--lav:#3f86d0;--lav-soft:rgba(63,134,208,.14);--sand:rgba(255,200,120,.3);--rose:rgba(255,120,120,.2);--sky:rgba(80,150,255,.2);--danger:#d04a4a;--shadow:0 10px 30px rgba(20,110,80,.12);--b1:#7fe0bc;--b2:#8fc0ff;--glow:#fff;--blob:.55}
+.swatch{width:92px;height:56px;border-radius:12px;border:2px solid transparent;cursor:pointer;font-size:12px;font-weight:700;display:flex;align-items:flex-end;padding:7px;text-shadow:0 1px 3px rgba(0,0,0,.25);transition:transform .2s,box-shadow .2s}
+.swatch:hover{transform:translateY(-3px)}
+.swatch.on{border-color:var(--ink);box-shadow:0 0 0 2px var(--accent)}
+.paper{display:flex;flex-direction:column;gap:10px}
+.paper .ptitle{font-family:var(--disp);font-size:32px;letter-spacing:.08em;border:0;background:transparent;padding:4px 0;box-shadow:none}
+.paper .pbody{min-height:55vh;border:0;background:transparent;font-size:17px;line-height:1.75;padding:4px 0;resize:none;box-shadow:none}
+.paper .ptitle:focus,.paper .pbody:focus{box-shadow:none}
+.page{cursor:pointer}
+.buddy{position:fixed;right:14px;bottom:14px;z-index:15;display:flex;flex-direction:column;align-items:flex-end;gap:4px}
+#bud{background:none;border:0;width:76px;height:76px;padding:0;cursor:pointer;animation:bob 4s ease-in-out infinite;transition:transform .2s;filter:drop-shadow(0 8px 10px rgba(0,0,0,.25))}
+#bud:hover{transform:scale(1.1) rotate(-4deg)}#bud:active{transform:scale(.94)}
+#bud svg{width:100%;height:100%}
+@keyframes bob{50%{transform:translateY(-6px)}}
+.eye{transform-box:fill-box;transform-origin:center;animation:blink 5s infinite}
+@keyframes blink{0%,93%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
+.bub{max-width:210px;background:var(--sheet);color:var(--ink);border:1px solid var(--line);border-radius:14px;padding:9px 13px;font-size:14px;box-shadow:var(--shadow);opacity:0;transform:translateY(6px) scale(.95);transition:opacity .3s,transform .3s;pointer-events:none}
+.bub.on{opacity:1;transform:none}
+.heart{position:absolute;right:34px;bottom:56px;font-size:20px;pointer-events:none;animation:floatup 1.4s ease-out forwards}
+@keyframes floatup{to{transform:translate(var(--dx),-90px);opacity:0}}
+@media(max-width:800px){.buddy{bottom:calc(78px + env(safe-area-inset-bottom));right:10px}#bud{width:64px;height:64px}}
 /* charts */
 .chart{width:100%;height:auto;display:block}
 .chart .gl{stroke:var(--line);stroke-width:1}
@@ -158,10 +185,11 @@ main.enter .seg{animation:segin .9s ease both}
 </head>
 <body>
 <div id="lock"><div class="box card"><h2>🔒 Welcome back</h2><p class="sub">Enter your PIN</p><input id="pin" type="password" inputmode="numeric" autocomplete="off" placeholder="PIN"><p id="pinerr" class="sub" style="margin-top:10px"></p><button class="btn" id="unlock">Unlock</button></div></div>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="gA" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffb27a"/><stop offset="1" stop-color="#ff5f7a"/></linearGradient><linearGradient id="gArea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff9a62" stop-opacity=".5"/><stop offset="1" stop-color="#ff9a62" stop-opacity="0"/></linearGradient></defs></svg>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="gA" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--orange)"/><stop offset="1" style="stop-color:var(--accent)"/></linearGradient><linearGradient id="gArea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--orange)" stop-opacity=".5"/><stop offset="1" style="stop-color:var(--orange)" stop-opacity="0"/></linearGradient></defs></svg>
 <div class="bg"><i></i><i></i></div>
 <div class="app"><nav id="nav"></nav><main id="main"></main></div>
 <div id="modal"></div>
+<div id="buddy" class="buddy" hidden><div id="bub" class="bub" role="status"></div><button id="bud" aria-label="Mochi, your calm buddy. Tap for a kind word"><svg viewBox="0 0 100 100" aria-hidden="true"><ellipse cx="50" cy="94" rx="26" ry="4" fill="rgba(0,0,0,.18)"/><path d="M20 44L24 12L46 30Z" fill="#fff1e2"/><path d="M80 44L76 12L54 30Z" fill="#fff1e2"/><path d="M26 36L28 20L40 31Z" fill="#ffb8c6"/><path d="M74 36L72 20L60 31Z" fill="#ffb8c6"/><ellipse cx="50" cy="60" rx="38" ry="32" fill="#fff1e2"/><ellipse class="eye" cx="36" cy="58" rx="3.6" ry="4.6" fill="#3a2a4d"/><ellipse class="eye" cx="64" cy="58" rx="3.6" ry="4.6" fill="#3a2a4d"/><circle cx="37.2" cy="56.4" r="1.2" fill="#fff"/><circle cx="65.2" cy="56.4" r="1.2" fill="#fff"/><ellipse cx="27" cy="68" rx="6" ry="4" fill="#ffa3b5" opacity=".65"/><ellipse cx="73" cy="68" rx="6" ry="4" fill="#ffa3b5" opacity=".65"/><ellipse cx="50" cy="64" rx="2.2" ry="1.6" fill="#ff8fa3"/><path d="M45 68q2.5 3.5 5 0q2.5 3.5 5 0" fill="none" stroke="#3a2a4d" stroke-width="2" stroke-linecap="round"/></svg></button></div>
 <script>
 "use strict";
 /* ---------- helpers ---------- */
@@ -177,21 +205,23 @@ const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;'
 const nice=s=>parse(s).toLocaleDateString(undefined,{weekday:'short',day:'numeric',month:'short'});
 const daysBetween=(a,b)=>Math.round((parse(b)-parse(a))/864e5);
 const MOODS=['😞','😕','😐','🙂','😄'],MOODL=['Rough','Meh','Okay','Good','Great'];
-const TAGS=['📚 Studied','💻 Coded','♟️ Chess','🎧 Music','🎬 Movie','👫 Friends','👨‍👩‍👦 Family','🏃 Moved','😴 Rested','😰 Stressed','🌱 Learned something','🍜 Good food'];
-const QUOTES=["One small step today is still a step.","You don't have to do everything. Just the next thing.","Rest is part of the plan, not a break from it.","Progress is quiet. Keep going gently.","A calm mind plays better chess and writes better code.","Breathe. Then pick one thing.","Done is lighter than perfect.","Be kind to future you: write it down.","Every expert was once a beginner with a messy first draft.","Your pace is allowed to be your own.","A good song, a deep breath, one task. That's a good hour."];
+const TAGS=['📚 Studied','💻 Coded','🎧 Music','🎬 Movie','👫 Friends','👨‍👩‍👦 Family','🏃 Moved','😴 Rested','😰 Stressed','🌱 Learned something','🍜 Good food'];
+const QUOTES=["One small step today is still a step.","You don't have to do everything. Just the next thing.","Rest is part of the plan, not a break from it.","Progress is quiet. Keep going gently.","A calm mind makes better choices.","Breathe. Then pick one thing.","Done is lighter than perfect.","Be kind to future you: write it down.","Every expert was once a beginner with a messy first draft.","Your pace is allowed to be your own.","A good song, a deep breath, one task. That's a good hour."];
 
 /* ---------- state ---------- */
 const defaults=()=>({v:1,name:'',theme:'auto',pinHash:'',tasks:[],notes:[],goals:[],events:[],diary:{},habits:[
- {id:uid(),name:'Chess puzzle',emoji:'♟️'},{id:uid(),name:'Code 30 min',emoji:'💻'},{id:uid(),name:'Listen to music',emoji:'🎧'},{id:uid(),name:'Drink water',emoji:'💧'}],
- hlog:{},movies:[],music:[],chess:[],focus:{}});
-let S=load();
+ {id:uid(),name:'Listen to music',emoji:'🎧'},{id:uid(),name:'Drink water',emoji:'💧'}],
+ hlog:{},movies:[],music:[],chess:[],focus:{},hobs:[{id:'movies',name:'Movies',e:'🎬',kind:'movies'},{id:'music',name:'Music',e:'🎧',kind:'music'}],items:{},pages:[],buddy:true});
+let S=load();migrate();
+function migrate(){if(!S.mig2){S.habits=S.habits.filter(h=>!['Chess puzzle','Code 30 min'].includes(h.name));S.mig2=1;try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}}
 function load(){try{const r=localStorage.getItem(KEY)||localStorage.getItem(OLDKEY);if(r)return Object.assign(defaults(),JSON.parse(r))}catch(e){}return defaults()}
 function save(rerender=true){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){toast('Could not save (storage full or blocked)')}if(rerender)render()}
 function toast(t){const e=document.createElement('div');e.className='toast';e.textContent=t;document.body.appendChild(e);setTimeout(()=>e.remove(),2200)}
 
 /* ---------- theme ---------- */
-function applyTheme(){const M={auto:'sunset',dark:'sunset',dusk:'ocean'};let t=M[S.theme]||S.theme;if(!['sunset','ocean','light'].includes(t))t='sunset';S.theme=t;document.documentElement.dataset.theme=t;
- const m=document.querySelector('meta[name=theme-color]');if(m)m.content={sunset:'#2a1b55',ocean:'#0b1f5c',light:'#f3e3ee'}[t]}
+const THEMES=[['sunset','Sunset','linear-gradient(160deg,#8a4f93,#ec6a7d 50%,#1a4a98)','#fff','#2a1b55'],['ocean','Ocean','linear-gradient(160deg,#0a1c58,#1d4bbd 55%,#e8708f)','#fff','#0b1f5c'],['midnight','Midnight','linear-gradient(160deg,#060916,#0f1a40 55%,#1c1248)','#fff','#0a0e1f'],['forest','Forest','linear-gradient(160deg,#0a2a21,#14614a 55%,#c9b87a)','#fff','#0b2a22'],['aurora','Aurora','linear-gradient(160deg,#04202b,#0b5f6b 45%,#c05a9a)','#fff','#04202b'],['light','Light','linear-gradient(160deg,#ffe4df,#f6dcec 50%,#dbe3ff)','#241b4a','#f3e3ee'],['candy','Candy','linear-gradient(160deg,#ffe3ef,#ffd0e6 50%,#e3d4ff)','#3d1a47','#ffe3ef'],['mint','Mint','linear-gradient(160deg,#e3fbf0,#c9f0e0 50%,#d9e8ff)','#12392e','#e3fbf0']];
+function applyTheme(){const M={auto:'sunset',dark:'sunset',dusk:'ocean'};const T0=THEMES.find(x=>x[0]===(M[S.theme]||S.theme))||THEMES[0];S.theme=T0[0];document.documentElement.dataset.theme=T0[0];
+ const m=document.querySelector('meta[name=theme-color]');if(m)m.content=T0[4]}
 
 /* ---------- lock ---------- */
 async function hash(s){try{const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode('calm:'+s));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')}catch(e){let h=5381;for(const c of s)h=((h<<5)+h+c.charCodeAt(0))|0;return 'x'+h}}
@@ -202,9 +232,9 @@ $('#pin').addEventListener('keydown',e=>{if(e.key==='Enter')$('#unlock').click()
 
 /* ---------- nav ---------- */
 let lastView=null;
-const NAV=[['home','M3 11l9-8 9 8M5 10v10h14V10','Home'],['insights','M4 20V10M10 20V4M16 20v-7M22 20H2','Insights'],['tasks','M4 12l5 5L20 6','To-do'],['calendar','M4 6h16v14H4zM4 10h16M8 3v4M16 3v4','Calendar'],['diary','M6 3h12v18H6zM9 8h6M9 12h6','Diary'],['remember','M12 17v5M8 3h8l-1 7 3 3H6l3-3z','Remember'],['goals','M12 3a9 9 0 100 18 9 9 0 000-18zM12 8a4 4 0 100 8 4 4 0 000-8z','Goals'],['habits','M4 20c0-9 6-15 16-16 0 10-6 16-16 16zM4 20l8-8','Habits'],['hobbies','M9 18V5l11-2v13M9 18a3 3 0 11-6 0 3 3 0 016 0zM20 16a3 3 0 11-6 0 3 3 0 016 0z','Hobbies'],['focus','M12 7v5l3 2M12 3a9 9 0 100 18 9 9 0 000-18z','Focus'],['settings','M4 7h10M18 7h2M4 17h2M10 17h10M14 4v6M6 14v6','Settings']];
+const NAV=[['home','M3 11l9-8 9 8M5 10v10h14V10','Home'],['insights','M4 20V10M10 20V4M16 20v-7M22 20H2','Insights'],['tasks','M4 12l5 5L20 6','To-do'],['calendar','M4 6h16v14H4zM4 10h16M8 3v4M16 3v4','Calendar'],['diary','M6 3h12v18H6zM9 8h6M9 12h6','Diary'],['remember','M12 17v5M8 3h8l-1 7 3 3H6l3-3z','Remember'],['write','M4 20l4-1 11-11-3-3L5 16zM14 6l3 3','Notebook'],['goals','M12 3a9 9 0 100 18 9 9 0 000-18zM12 8a4 4 0 100 8 4 4 0 000-8z','Goals'],['habits','M4 20c0-9 6-15 16-16 0 10-6 16-16 16zM4 20l8-8','Habits'],['hobbies','M9 18V5l11-2v13M9 18a3 3 0 11-6 0 3 3 0 016 0zM20 16a3 3 0 11-6 0 3 3 0 016 0z','Hobbies'],['focus','M12 7v5l3 2M12 3a9 9 0 100 18 9 9 0 000-18z','Focus'],['settings','M4 7h10M18 7h2M4 17h2M10 17h10M14 4v6M6 14v6','Settings']];
 let view=(location.hash||'#home').slice(1);if(!NAV.find(n=>n[0]===view))view='home';
-const ui={taskf:'all',hob:'movies',cy:new Date().getFullYear(),cm:new Date().getMonth(),sel:today(),q:''};
+const ui={taskf:'all',hob:'movies',cy:new Date().getFullYear(),cm:new Date().getMonth(),sel:today(),q:'',wq:'',page:''};
 function go(v){view=v;location.hash=v;window.scrollTo(0,0);render()}
 addEventListener('hashchange',()=>{const v=location.hash.slice(1);if(v!==view&&NAV.find(n=>n[0]===v)){view=v;render()}});
 
@@ -270,6 +300,15 @@ function musicForm(m={}){openForm({title:m.id?'Edit music':'Add music',vals:m,fi
 function chessForm(c={}){openForm({title:c.id?'Edit game':'Log a chess game',vals:{date:today(),...c},fields:[{k:'date',label:'Date',t:'date'},{k:'result',label:'Result',t:'select',o:[['W','Win'],['D','Draw'],['L','Loss']],def:'W'},{k:'rating',label:'Your rating after (optional)',t:'number'},{k:'note',label:'What did you learn?',t:'textarea',mic:1}],
  save:v=>{if(c.id)Object.assign(S.chess.find(x=>x.id===c.id),v);else S.chess.unshift({id:uid(),...v});save()},del:c.id?()=>{S.chess=S.chess.filter(x=>x.id!==c.id);save()}:null})}
 
+/* ---------- hobby + notebook helpers ---------- */
+const wc=t=>(t||'').trim()?(t||'').trim().split(/\s+/).length:0;
+let wt=null;
+function hobbyForm(){const have=k=>S.hobs.some(h=>h.kind===k);const o=[['list','My own list']];[['movies','Movies tracker'],['music','Music tracker'],['chess','Chess tracker']].forEach(([k,n])=>{if(!have(k))o.push([k,n])});
+ openForm({title:'Add a hobby',fields:[{k:'name',label:'Name',req:1,ph:'Drawing, Cricket, Reading…'},{k:'e',label:'Emoji',ph:'🎨'},{k:'kind',label:'Type',t:'select',o,def:'list'}],
+  save:v=>{const h={id:uid(),name:v.name,e:v.e,kind:v.kind};S.hobs.push(h);ui.hob=h.id;save()}})}
+function itemForm(hid,it={}){openForm({title:it.id?'Edit':'Add to your list',vals:it,fields:[{k:'title',label:'Title',req:1},{k:'note',label:'Note',t:'textarea',mic:1}],
+ save:v=>{const l=S.items[hid]=S.items[hid]||[];if(it.id)Object.assign(l.find(x=>x.id===it.id),v);else l.unshift({id:uid(),...v});save()},del:it.id?()=>{S.items[hid]=S.items[hid].filter(x=>x.id!==it.id);save()}:null})}
+
 /* ---------- charts ---------- */
 const lastDays=n=>Array.from({length:n},(_,i)=>addDays(today(),i-n+1));
 const wd=d=>parse(d).toLocaleDateString(undefined,{weekday:'short'}).slice(0,3);
@@ -322,7 +361,7 @@ tasks(){const t=today();let l=S.tasks.slice();if(ui.taskf==='today')l=l.filter(x
 remember(){const q=ui.q.toLowerCase();const l=S.notes.filter(n=>!q||(n.title+' '+n.body).toLowerCase().includes(q)).sort((a,b)=>(b.pin?1:0)-(a.pin?1:0));
  return `<h1>Remember</h1><p class="sub">Passwords hints, ideas, deadlines, anything you don't want to forget.</p><div class="row" style="margin-bottom:16px"><input type="text" id="q" placeholder="Search…" value="${esc(ui.q)}" style="flex:1"><button class="btn" data-a="nn">+ New</button></div>
  ${l.length?`<div class="notes">${l.map(n=>`<div class="note ${n.color||'c0'}" style="box-shadow:var(--shadow)"><div class="row between"><h3>${n.pin?'📌 ':''}${esc(n.title)}</h3><span><button class="icon-btn" data-a="np" data-id="${n.id}">${n.pin?'📍':'📌'}</button><button class="icon-btn" data-a="en" data-id="${n.id}">✏️</button></span></div><p>${esc(n.body)}</p></div>`).join('')}</div>`:'<div class="card empty">Nothing here yet. Tap “New” 🌿</div>'}`},
-goals(){const sug=['Reach a chess rating goal','Build a project for my portfolio','Learn a new programming language','Get good grades this semester','Learn to play a song'];
+goals(){const sug=['Read one book this month','Build a project for my portfolio','Learn a new programming language','Get good grades this semester','Learn to play a song'];
  return `<h1>Goals</h1><p class="sub">Big dreams, tiny steps.</p><button class="btn" data-a="ng" style="margin-bottom:16px">+ New goal</button>
  ${S.goals.length?`<div class="grid g2">${S.goals.map(g=>{const done=g.ms.filter(m=>m.done).length;const p=g.ms.length?Math.round(done/g.ms.length*100):g.pct||0;const left=g.due?daysBetween(today(),g.due):null;
   return `<div class="card"><div class="row between"><h2 style="margin:0">${p>=100?'🏆':'🎯'} ${esc(g.title)}</h2><button class="icon-btn" data-a="eg" data-id="${g.id}">✏️</button></div>${g.why?`<p class="sub" style="margin:6px 0 10px">${esc(g.why)}</p>`:''}<div class="bar"><i style="width:${p}%"></i></div><small class="sub">${p}% ${left!==null?'· '+(left>=0?left+' days left':'past target date'):''}</small>
@@ -343,24 +382,31 @@ diary(){const t=today();const days=[];for(let i=13;i>=0;i--)days.push(addDays(t,
  <div class="card" style="margin-bottom:16px"><h2>Mood, last 14 days</h2><div class="mbars">${days.map(d=>`<i title="${d}" style="height:${S.diary[d]&&S.diary[d].mood?S.diary[d].mood*20:4}%;${S.diary[d]&&S.diary[d].mood?'':'opacity:.25'}"></i>`).join('')}</div></div>
  <div class="card"><h2>Past entries</h2>${keys.length?keys.map(d=>{const e=S.diary[d];return `<div class="item" data-a="diary" data-d="${d}" style="cursor:pointer"><div style="font-size:26px">${MOODS[(e.mood||3)-1]}</div><div class="t"><b>${nice(d)}</b>${e.high?`<small>⭐ ${esc(e.high)}</small>`:''}<small>${esc((e.tags||[]).join(' · '))}</small>${e.note?`<small>${esc(e.note.slice(0,140))}</small>`:''}</div></div>`}).join(''):'<div class="empty">Your first entry will show up here</div>'}</div>`},
 habits(){const t=today();const days=[];for(let i=6;i>=0;i--)days.push(addDays(t,-i));
- return `<h1>Habits</h1><p class="sub">Tiny daily wins add up.</p><button class="btn" data-a="nh" style="margin-bottom:16px">+ New habit</button><div class="card"><div class="hgrid"><span></span>${days.map(d=>`<span class="hd">${parse(d).toLocaleDateString(undefined,{weekday:'narrow'})}<br>${+d.slice(8)}</span>`).join('')}
- ${S.habits.map(h=>`<div data-a="eh" data-id="${h.id}" style="cursor:pointer">${esc(h.emoji||'')} ${esc(h.name)}<small class="sub" style="display:block;margin:0">🔥 ${habitStreak(h.id)} day streak</small></div>${days.map(d=>`<button class="hb ${(S.hlog[d]||[]).includes(h.id)?'on':''}" data-a="hb" data-id="${h.id}" data-d="${d}"></button>`).join('')}`).join('')}</div></div>`},
-hobbies(){const tabs=[['movies','🎬 Movies'],['music','🎧 Music'],['chess','♟️ Chess']];let body='';
- if(ui.hob==='movies'){const w=S.movies.filter(m=>m.status!=='watched'),d=S.movies.filter(m=>m.status==='watched');
-  const row=m=>`<div class="item" data-a="em" data-id="${m.id}" style="cursor:pointer"><div class="t">${esc(m.title)}<small>${m.status==='watched'?'⭐'.repeat(Math.min(5,+m.rating||0))+' ':''}${esc(m.note||'')}</small></div></div>`;
+ return `<h1>Habits</h1><p class="sub">Tiny daily wins add up. Tap ✕ to delete a habit, or its name to edit it.</p><button class="btn" data-a="nh" style="margin-bottom:16px">+ New habit</button><div class="card"><div class="hgrid"><span></span>${days.map(d=>`<span class="hd">${parse(d).toLocaleDateString(undefined,{weekday:'narrow'})}<br>${+d.slice(8)}</span>`).join('')}
+ ${S.habits.map(h=>`<div data-a="eh" data-id="${h.id}" style="cursor:pointer"><span style="display:flex;align-items:center;gap:6px">${esc(h.emoji||'')} ${esc(h.name)}<button class="icon-btn" data-a="dh" data-id="${h.id}" aria-label="Delete habit" style="font-size:12px;padding:2px 6px;margin-left:auto">✕</button></span><small class="sub" style="display:block;margin:0">🔥 ${habitStreak(h.id)} day streak</small></div>${days.map(d=>`<button class="hb ${(S.hlog[d]||[]).includes(h.id)?'on':''}" data-a="hb" data-id="${h.id}" data-d="${d}"></button>`).join('')}`).join('')}</div></div>`},
+hobbies(){const H=S.hobs;if(!H.find(h=>h.id===ui.hob))ui.hob=H.length?H[0].id:'';const cur=H.find(h=>h.id===ui.hob);let body='';
+ const dx=(a,id,h)=>`<button class="icon-btn" data-a="${a}" data-id="${id}" ${h?`data-h="${h}"`:''} aria-label="Delete">✕</button>`;
+ if(cur&&cur.kind==='movies'){const w=S.movies.filter(m=>m.status!=='watched'),d=S.movies.filter(m=>m.status==='watched');
+  const row=m=>`<div class="item" data-a="em" data-id="${m.id}" style="cursor:pointer"><div class="t">${esc(m.title)}<small>${m.status==='watched'?'⭐'.repeat(Math.min(5,+m.rating||0))+' ':''}${esc(m.note||'')}</small></div>${dx('dm',m.id)}</div>`;
   body=`<button class="btn" data-a="nm" style="margin-bottom:16px">+ Add movie</button><div class="grid g2"><div class="card"><h2>Watchlist</h2>${w.map(row).join('')||'<div class="empty">Empty</div>'}</div><div class="card"><h2>Watched</h2>${d.map(row).join('')||'<div class="empty">Nothing yet</div>'}</div></div>`}
- if(ui.hob==='music'){body=`<button class="btn" data-a="nmu" style="margin-bottom:16px">+ Add music</button><div class="card">${S.music.map(m=>`<div class="item" data-a="emu" data-id="${m.id}" style="cursor:pointer"><div style="font-size:22px">🎵</div><div class="t">${esc(m.title)}<small>${esc(m.artist||'')} <span class="pill">${esc(m.kind||'')}</span> ${esc(m.note||'')}</small></div></div>`).join('')||'<div class="empty">Save songs and albums to revisit.</div>'}</div>`}
- if(ui.hob==='chess'){const g=S.chess,w=g.filter(x=>x.result==='W').length,l=g.filter(x=>x.result==='L').length,d=g.length-w-l;const rs=g.filter(x=>x.rating).slice().reverse().map(x=>+x.rating);
-  let sp='';if(rs.length>1){const mn=Math.min(...rs),mx=Math.max(...rs)||1,rg=(mx-mn)||1;sp=`<svg class="spark" viewBox="0 0 200 60" preserveAspectRatio="none"><polyline fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="${rs.map((r,i)=>`${i/(rs.length-1)*200},${55-((r-mn)/rg)*50}`).join(' ')}"/></svg>`}
-  body=`<button class="btn" data-a="nc" style="margin-bottom:16px">+ Log a game</button><div class="grid g3" style="margin-bottom:16px"><div class="card stat"><b>${g.length}</b><small>games</small></div><div class="card stat"><b>${g.length?Math.round(w/g.length*100):0}%</b><small>wins (${w}W ${d}D ${l}L)</small></div><div class="card stat"><b>${rs.length?rs[rs.length-1]:'–'}</b><small>latest rating</small></div></div>${sp?`<div class="card" style="margin-bottom:16px"><h2>Rating trend</h2>${sp}</div>`:''}<div class="card">${g.map(x=>`<div class="item" data-a="ec" data-id="${x.id}" style="cursor:pointer"><div style="font-size:22px">${x.result==='W'?'🟢':x.result==='L'?'🔴':'🟡'}</div><div class="t">${nice(x.date)}${x.rating?' · '+esc(x.rating):''}<small>${esc(x.note||'')}</small></div></div>`).join('')||'<div class="empty">Log games to track your progress ♟️</div>'}</div>`}
- return `<h1>Hobbies</h1><p class="sub">Music, movies and chess: the stuff that recharges you.</p><div class="tabs">${tabs.map(([k,n])=>`<button class="chip ${ui.hob===k?'on':''}" data-a="ht" data-k="${k}">${n}</button>`).join('')}</div>${body}`},
+ if(cur&&cur.kind==='music'){body=`<button class="btn" data-a="nmu" style="margin-bottom:16px">+ Add music</button><div class="card">${S.music.map(m=>`<div class="item" data-a="emu" data-id="${m.id}" style="cursor:pointer"><div style="font-size:22px">🎵</div><div class="t">${esc(m.title)}<small>${esc(m.artist||'')} <span class="pill">${esc(m.kind||'')}</span> ${esc(m.note||'')}</small></div>${dx('dmu',m.id)}</div>`).join('')||'<div class="empty">Save songs and albums to revisit.</div>'}</div>`}
+ if(cur&&cur.kind==='chess'){const g=S.chess,w=g.filter(x=>x.result==='W').length,l=g.filter(x=>x.result==='L').length,d=g.length-w-l;const rs=g.filter(x=>x.rating).slice().reverse().map(x=>+x.rating);
+  body=`<button class="btn" data-a="nc" style="margin-bottom:16px">+ Log a game</button><div class="grid g3" style="margin-bottom:16px"><div class="card stat"><b>${g.length}</b><small>games</small></div><div class="card stat"><b>${g.length?Math.round(w/g.length*100):0}%</b><small>wins (${w}W ${d}D ${l}L)</small></div><div class="card stat"><b>${rs.length?rs[rs.length-1]:'–'}</b><small>latest rating</small></div></div><div class="card">${g.map(x=>`<div class="item" data-a="ec" data-id="${x.id}" style="cursor:pointer"><div style="font-size:22px">${x.result==='W'?'🟢':x.result==='L'?'🔴':'🟡'}</div><div class="t">${nice(x.date)}${x.rating?' · '+esc(x.rating):''}<small>${esc(x.note||'')}</small></div>${dx('dc',x.id)}</div>`).join('')||'<div class="empty">Log games to track your progress.</div>'}</div>`}
+ if(cur&&cur.kind==='list'){const it=S.items[cur.id]||[];body=`<button class="btn" data-a="ni" data-id="${cur.id}" style="margin-bottom:16px">+ Add to ${esc(cur.name)}</button><div class="card">${it.map(m=>`<div class="item" data-a="ei" data-h="${cur.id}" data-id="${m.id}" style="cursor:pointer"><div class="t">${esc(m.title)}<small>${esc(m.note||'')}</small></div>${dx('di',m.id,cur.id)}</div>`).join('')||'<div class="empty">Nothing here yet. Add your first one.</div>'}</div>`}
+ return `<h1>Hobbies</h1><p class="sub">The things that recharge you. Add or remove them any time.</p><div class="tabs">${H.map(h=>`<button class="chip ${ui.hob===h.id?'on':''}" data-a="ht" data-k="${h.id}">${esc(h.e||'')} ${esc(h.name)}</button>`).join('')}<button class="chip" data-a="nhb">+ Add hobby</button></div>${body||'<div class="card empty">No hobbies here yet. Tap “Add hobby” to start one.</div>'}${cur?`<div style="margin-top:22px"><button class="btn sm danger" data-a="rh" data-id="${cur.id}">Remove ${esc(cur.name)} from hobbies</button></div>`:''}`},
+write(){const q=ui.wq.toLowerCase();
+ if(ui.page){const p=S.pages.find(x=>x.id===ui.page);if(p)return `<div class="row between" style="margin-bottom:14px"><button class="btn sm ghost" data-a="wb">‹ All pages</button><span class="sub" id="ws" style="margin:0"></span></div><div class="card paper"><input type="text" id="pt" class="ptitle" placeholder="Untitled" value="${esc(p.title)}"><textarea id="pb" class="pbody" placeholder="Write anything…">${esc(p.body)}</textarea><div class="row between"><small class="sub" id="wc" style="margin:0">${wc(p.body)} words</small><button class="btn sm danger" data-a="wd" data-id="${p.id}">Delete page</button></div></div>`;ui.page=''}
+ const l=S.pages.filter(p=>!q||(p.title+' '+p.body).toLowerCase().includes(q)).sort((a,b)=>(b.upd||0)-(a.upd||0));
+ return `<h1>Notebook</h1><p class="sub">A free space to write things down and keep them. Everything saves as you type.</p><div class="row" style="margin-bottom:16px"><input type="text" id="wq" placeholder="Search your pages…" value="${esc(ui.wq)}" style="flex:1"><button class="btn" data-a="wn">+ New page</button></div>
+ ${l.length?`<div class="grid g2">${l.map(p=>`<div class="card page" data-a="wo" data-id="${p.id}"><h2>${esc(p.title||'Untitled')}</h2><p class="sub" style="margin:0 0 10px;white-space:pre-wrap;word-break:break-word">${esc((p.body||'').slice(0,160))||'Empty page'}</p><small class="sub" style="margin:0">${new Date(p.upd||p.at).toLocaleDateString(undefined,{day:'numeric',month:'short',year:'numeric'})} · ${wc(p.body)} words</small></div>`).join('')}</div>`:`<div class="card empty">Your notebook is empty. Tap “New page” and write whatever is on your mind.</div>`}`},
+
 insights(){const d7=lastDays(7),d14=lastDays(14),L7=d7.map(wd);
  const sum=a=>a.reduce((p,c)=>p+c,0),empty=t=>`<div class="empty">${t}</div>`;
  const done=d7.map(d=>S.tasks.filter(x=>x.done&&x.doneAt===d).length),foc=d7.map(d=>S.focus[d]||0);
  const hab=d7.map(d=>{const ids=S.habits.map(h=>h.id),n=(S.hlog[d]||[]).filter(i=>ids.includes(i)).length;return ids.length?Math.round(n/ids.length*100):0});
  const mood=d14.map(d=>S.diary[d]&&S.diary[d].mood?+S.diary[d].mood:null),mv=mood.filter(Boolean);
  const open=S.tasks.filter(x=>!x.done).length,dn=S.tasks.length-open;
- const g=S.chess,w=g.filter(x=>x.result==='W').length,l=g.filter(x=>x.result==='L').length,dr=g.length-w-l;
+ const cc=S.hobs.some(h=>h.kind==='chess'),g=cc?S.chess:[],w=g.filter(x=>x.result==='W').length,l=g.filter(x=>x.result==='L').length,dr=g.length-w-l;
  const rs=g.filter(x=>x.rating).slice().reverse().map(x=>+x.rating);
  return `<h1>Insights</h1><p class="sub">Your last few days, at a glance.</p>
  <div class="grid g3" style="margin-bottom:16px"><div class="card stat"><b>${sum(done)}</b><small>tasks done (7 days)</small></div><div class="card stat"><b>${sum(foc)}</b><small>focus sessions (7 days)</small></div><div class="card stat"><b>${mv.length?(sum(mv)/mv.length).toFixed(1):'–'}</b><small>average mood (of 5)</small></div></div>
@@ -369,14 +415,15 @@ insights(){const d7=lastDays(7),d14=lastDays(14),L7=d7.map(wd);
  <div class="card"><h2>Focus sessions</h2>${sum(foc)?barChart(foc,L7):empty('Finish a focus timer to see it here')}</div>
  <div class="card"><h2>Habits completed</h2>${S.habits.length?barChart(hab,L7,v=>v+'%'):empty('Add habits in the Habits tab')}</div>
  <div class="card"><h2>Mood, last 14 days</h2>${mv.length>1?lineChart(mood,d14.map((d,i)=>i%2?'':+d.slice(8)),1,5):empty('Log your diary on 2 days to see your mood line')}</div>
- <div class="card"><h2>Tasks: done vs open</h2>${S.tasks.length?donut([{l:'Done',v:dn,c:'#ff9a62'},{l:'Open',v:open,c:'#a8a2ff'}],Math.round(dn/S.tasks.length*100)+'%'):empty('No tasks yet')}</div>
- <div class="card"><h2>Chess results</h2>${g.length?donut([{l:'Wins',v:w,c:'#5fd4a0'},{l:'Draws',v:dr,c:'#ffd27a'},{l:'Losses',v:l,c:'#ff6b6b'}].filter(p=>p.v),g.length+' games'):empty('Log a game in Hobbies, then Chess')}</div>
+ <div class="card"><h2>Tasks: done vs open</h2>${S.tasks.length?donut([{l:'Done',v:dn,c:'var(--orange)'},{l:'Open',v:open,c:'var(--lav)'}],Math.round(dn/S.tasks.length*100)+'%'):empty('No tasks yet')}</div>
+ <div class="card" ${cc?'':'hidden'}><h2>Chess results</h2>${g.length?donut([{l:'Wins',v:w,c:'#5fd4a0'},{l:'Draws',v:dr,c:'#ffd27a'},{l:'Losses',v:l,c:'#ff6b6b'}].filter(p=>p.v),g.length+' games'):empty('Log a game in Hobbies, then Chess')}</div>
  ${rs.length>1?`<div class="card"><h2>Chess rating</h2>${lineChart(rs,rs.map((r,i)=>i+1),Math.min(...rs)-10,Math.max(...rs)+10)}</div>`:''}
  </div>`},
 focus(){const n=S.focus[today()]||0;return `<h1>Focus</h1><p class="sub">25 minutes of focus, 5 minutes of rest. Sessions today: <b>${n}</b></p><div class="card"><div class="timer" id="tm">${tfmt()}</div><div class="chips" style="justify-content:center"><button class="chip ${T.mode==='focus'?'on':''}" data-a="tmode" data-k="focus">Focus 25</button><button class="chip ${T.mode==='break'?'on':''}" data-a="tmode" data-k="break">Break 5</button></div><div class="row" style="justify-content:center"><button class="btn" data-a="tgo" id="tgo">${T.run?'Pause':'Start'}</button><button class="btn ghost" data-a="trs">Reset</button></div></div>`},
 settings(){return `<h1>Settings</h1><p class="sub">Everything is stored only in this browser on this device. Nobody else can see it.</p><div class="grid g2">
  <div class="card"><h2>Profile</h2><label class="f"><span>Your name</span><input type="text" id="nm" value="${esc(S.name)}"></label><button class="btn sm" data-a="sn">Save name</button></div>
- <div class="card"><h2>Look</h2><div class="chips">${[['sunset','Sunset'],['ocean','Ocean'],['light','Light']].map(([k,n])=>`<button class="chip ${S.theme===k?'on':''}" data-a="th" data-k="${k}">${n}</button>`).join('')}</div></div>
+ <div class="card"><h2>Look</h2><div class="chips">${THEMES.map(([k,n,g,c])=>`<button class="swatch ${S.theme===k?'on':''}" data-a="th" data-k="${k}" style="background:${g};color:${c}">${n}</button>`).join('')}</div></div>
+ <div class="card"><h2>Mochi, your buddy</h2><p class="sub" style="font-size:14px">A little friend in the corner. Tap for a kind word.</p><div class="chips">${[['on','Show'],['off','Hide']].map(([k,n])=>`<button class="chip ${(S.buddy!==false)===(k==='on')?'on':''}" data-a="bd" data-k="${k}">${n}</button>`).join('')}</div></div>
  <div class="card"><h2>🔒 PIN lock</h2><p class="sub" style="font-size:14px">Adds a PIN screen when the app opens. Good for shared laptops.</p><div class="row"><button class="btn sm" data-a="pin">${S.pinHash?'Change PIN':'Set PIN'}</button>${S.pinHash?'<button class="btn sm danger" data-a="nopin">Remove</button>':''}</div></div>
  <div class="card"><h2>Backup</h2><p class="sub" style="font-size:14px">Download a copy so you never lose your data, or move it to another device.</p><div class="row"><button class="btn sm" data-a="exp">Download backup</button><button class="btn sm ghost" data-a="imp">Restore</button><input type="file" id="file" accept=".json" hidden></div></div>
  <div class="card"><h2>Danger zone</h2><button class="btn sm danger" data-a="wipe">Erase everything</button></div></div>`}
@@ -409,6 +456,18 @@ const A={
  tgo(){if(T.run){clearInterval(T.iv);T.run=false}else{T.run=true;T.iv=setInterval(tick,1000)}render()},
  trs(){clearInterval(T.iv);T.run=false;T.left=(T.mode==='focus'?25:5)*60;document.title='MyDesk – your personal desk';render()},
  tmode(d){clearInterval(T.iv);T.run=false;T.mode=d.k;T.left=(d.k==='focus'?25:5)*60;render()},
+ dm(d){if(confirm('Delete this movie?')){S.movies=S.movies.filter(x=>x.id!==d.id);save()}},
+ dmu(d){if(confirm('Delete this song?')){S.music=S.music.filter(x=>x.id!==d.id);save()}},
+ dc(d){if(confirm('Delete this game?')){S.chess=S.chess.filter(x=>x.id!==d.id);save()}},
+ di(d){if(confirm('Delete this?')){S.items[d.h]=(S.items[d.h]||[]).filter(x=>x.id!==d.id);save()}},
+ ni(d){itemForm(d.id)},ei(d){itemForm(d.h,(S.items[d.h]||[]).find(x=>x.id===d.id))},nhb(){hobbyForm()},
+ rh(d){const h=S.hobs.find(x=>x.id===d.id);if(!h)return;const own=h.kind==='list';if(confirm(own?'Remove "'+h.name+'" and everything saved in it?':'Remove "'+h.name+'" from your hobbies? Your saved entries are kept if you add it back later.')){S.hobs=S.hobs.filter(x=>x.id!==d.id);if(own)delete S.items[d.id];save()}},
+ dh(d){const h=S.habits.find(x=>x.id===d.id);if(h&&confirm('Delete the habit "'+h.name+'"?')){S.habits=S.habits.filter(x=>x.id!==d.id);save()}},
+ wn(){const p={id:uid(),title:'',body:'',at:Date.now(),upd:Date.now()};S.pages.unshift(p);ui.page=p.id;save();setTimeout(()=>{const e=$('#pt');if(e)e.focus()},60)},
+ wo(d){ui.page=d.id;render()},
+ wb(){clearTimeout(wt);const p=S.pages.find(x=>x.id===ui.page);if(p&&!p.title.trim()&&!p.body.trim())S.pages=S.pages.filter(x=>x!==p);ui.page='';save()},
+ wd(d){if(confirm('Delete this page?')){clearTimeout(wt);S.pages=S.pages.filter(x=>x.id!==d.id);ui.page='';save()}},
+ bd(d){S.buddy=d.k==='on';save()},
  breathe,
  sn(){S.name=$('#nm').value.trim();save();toast('Saved')},th(d){S.theme=d.k;applyTheme();save()},
  pin(){openForm({title:'Set a PIN',fields:[{k:'p',label:'New PIN (digits)',t:'password',req:1}],save:async v=>{if(v.p.length<3)return toast('Use at least 3 characters');S.pinHash=await hash(v.p);unlocked=true;save();toast('PIN set')}})},
@@ -419,15 +478,25 @@ const A={
 };
 document.addEventListener('click',e=>{const t=e.target.closest('[data-a]');if(!t||!A[t.dataset.a])return;if(t.tagName==='INPUT')return;A[t.dataset.a](t.dataset)});
 document.addEventListener('change',e=>{const t=e.target;if(t.dataset&&t.dataset.a==='gp'){S.goals.find(x=>x.id===t.dataset.id).pct=+t.value;save()}
- if(t.id==='file'&&t.files[0]){const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result);if(!d||typeof d!=='object'||!Array.isArray(d.tasks))throw 0;if(confirm('Replace current data with this backup?')){S=Object.assign(defaults(),d);save();toast('Restored')}}catch(x){toast('That file is not a valid backup')}};r.readAsText(t.files[0])}});
+ if(t.id==='file'&&t.files[0]){const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result);if(!d||typeof d!=='object'||!Array.isArray(d.tasks))throw 0;if(confirm('Replace current data with this backup?')){S=Object.assign(defaults(),d);migrate();save();toast('Restored')}}catch(x){toast('That file is not a valid backup')}};r.readAsText(t.files[0])}});
 document.addEventListener('input',e=>{if(e.target.id==='q'){ui.q=e.target.value;const p=e.target.selectionStart;render();const q=$('#q');q.focus();q.setSelectionRange(p,p)}});
+document.addEventListener('input',e=>{const t=e.target;
+ if(t.id==='wq'){ui.wq=t.value;const p=t.selectionStart;render();const q=$('#wq');q.focus();q.setSelectionRange(p,p)}
+ if(t.id==='pt'||t.id==='pb'){const p=S.pages.find(x=>x.id===ui.page);if(!p)return;if(t.id==='pt')p.title=t.value;else{p.body=t.value;const c=$('#wc');if(c)c.textContent=wc(p.body)+' words'}p.upd=Date.now();clearTimeout(wt);const st=$('#ws');if(st)st.textContent='Saving…';wt=setTimeout(()=>{save(false);const s2=$('#ws');if(s2)s2.textContent='Saved ✓'},500)}});
 document.addEventListener('submit',e=>{const f=e.target;if(f.dataset.s==='qt'){e.preventDefault();const fd=new FormData(f);S.tasks.unshift({id:uid(),text:fd.get('text').trim(),due:fd.get('due'),pri:'med',cat:'Personal',done:false});save()}});
+
+/* ---------- buddy ---------- */
+const KIND=["You're doing better than you think.","Breathe in... and out. 🌿","One small thing at a time.","Proud of you for showing up today.","Water break? 💧","It's okay to rest.","You've got this.","Soft shoulders, easy jaw. 😌","Today is allowed to be slow.","Look away from the screen for 20 seconds. 👀"];
+let ki=Math.floor(Math.random()*KIND.length),bto=null,greeted=false;
+function say(t){const b=$('#bub');b.textContent=t;b.classList.add('on');clearTimeout(bto);bto=setTimeout(()=>b.classList.remove('on'),4200)}
+$('#bud').onclick=()=>{say(KIND[ki++%KIND.length]);const h=document.createElement('span');h.className='heart';h.textContent=['💗','✨','🌸'][ki%3];h.style.setProperty('--dx',(Math.random()*40-20)+'px');$('#buddy').appendChild(h);setTimeout(()=>h.remove(),1500)};
 
 /* ---------- render ---------- */
 function render(){if(S.pinHash&&!unlocked){showLock();return}
  $('#nav').innerHTML=`<div class="brand"><img src="icon.svg" alt="">MyDesk</div>`+NAV.map(([k,i,n])=>`<button class="${view===k?'on':''}" onclick="go('${k}')"><svg viewBox="0 0 24 24"><path d="${i}"/></svg>${n}</button>`).join('');
  $('#main').className=view!==lastView?'enter':'';lastView=view;
  $('#main').innerHTML=views[view]();
+ $('#buddy').hidden=S.buddy===false;if(!greeted&&S.buddy!==false){greeted=true;setTimeout(()=>say('Hi '+(S.name||'friend')+'! I am Mochi. Tap me anytime. 🌸'),1500)}
  if(!S.name&&!S.asked){S.asked=true;save(false);openForm({title:'👋 Welcome! What should I call you?',fields:[{k:'name',label:'Your name'}],save:v=>{S.name=v.name;save()}})}}
 applyTheme();matchMedia('(prefers-color-scheme:dark)').addEventListener&&matchMedia('(prefers-color-scheme:dark)').addEventListener('change',applyTheme);
 if(S.pinHash)showLock();
