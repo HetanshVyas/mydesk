@@ -209,11 +209,14 @@ const TAGS=['📚 Studied','💻 Coded','🎧 Music','🎬 Movie','👫 Friends'
 const QUOTES=["One small step today is still a step.","You don't have to do everything. Just the next thing.","Rest is part of the plan, not a break from it.","Progress is quiet. Keep going gently.","A calm mind makes better choices.","Breathe. Then pick one thing.","Done is lighter than perfect.","Be kind to future you: write it down.","Every expert was once a beginner with a messy first draft.","Your pace is allowed to be your own.","A good song, a deep breath, one task. That's a good hour."];
 
 /* ---------- state ---------- */
-const defaults=()=>({v:1,name:'',theme:'auto',pinHash:'',tasks:[],notes:[],goals:[],events:[],diary:{},habits:[
+const defaults=()=>({v:1,name:'',theme:'auto',pinHash:'',tasks:[],notes:[],goals:[],events:[],diary:{},log:[],habits:[
  {id:uid(),name:'Listen to music',emoji:'🎧'},{id:uid(),name:'Drink water',emoji:'💧'}],
  hlog:{},movies:[],music:[],chess:[],focus:{},hobs:[{id:'movies',name:'Movies',e:'🎬',kind:'movies'},{id:'music',name:'Music',e:'🎧',kind:'music'}],items:{},pages:[],buddy:true});
 let S=load();migrate();
-function migrate(){if(!S.mig2){S.habits=S.habits.filter(h=>!['Chess puzzle','Code 30 min'].includes(h.name));S.mig2=1;try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}}
+function migrate(){let c=0;
+ if(!S.mig2){S.habits=S.habits.filter(h=>!['Chess puzzle','Code 30 min'].includes(h.name));S.mig2=1;c=1}
+ if(!S.mig3){if(!S.log)S.log=[];Object.keys(S.diary||{}).forEach(d=>{S.log.push({id:uid(),date:d,time:'',...S.diary[d]})});S.diary={};S.mig3=1;c=1}
+ if(c)try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
 function load(){try{const r=localStorage.getItem(KEY)||localStorage.getItem(OLDKEY);if(r)return Object.assign(defaults(),JSON.parse(r))}catch(e){}return defaults()}
 function save(rerender=true){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){toast('Could not save (storage full or blocked)')}if(rerender)render()}
 function toast(t){const e=document.createElement('div');e.className='toast';e.textContent=t;document.body.appendChild(e);setTimeout(()=>e.remove(),2200)}
@@ -275,7 +278,8 @@ function dictate(btn){const SR=window.SpeechRecognition||window.webkitSpeechReco
 const eventsOn=d=>S.events.filter(e=>e.date===d||(e.repeat==='yearly'&&e.date.slice(5)===d.slice(5)&&e.date<=d)).sort((a,b)=>(a.time||'').localeCompare(b.time||''));
 function streakOf(has){let d=today(),n=0;if(!has(d))d=addDays(d,-1);while(has(d)){n++;d=addDays(d,-1)}return n}
 const habitStreak=id=>streakOf(d=>(S.hlog[d]||[]).includes(id));
-const diaryStreak=()=>streakOf(d=>!!S.diary[d]);
+const diaryStreak=()=>streakOf(d=>S.log.some(e=>e.date===d));
+const dayMood=d=>{const m=S.log.filter(e=>e.date===d&&e.mood).map(e=>+e.mood);return m.length?m.reduce((p,c)=>p+c,0)/m.length:0};
 function greeting(){const h=new Date().getHours();return h<5?'Still up':h<12?'Good morning':h<17?'Good afternoon':h<21?'Good evening':'Winding down'}
 function dayOfYear(){const n=new Date();return Math.floor((n-new Date(n.getFullYear(),0,0))/864e5)}
 
@@ -289,8 +293,8 @@ function goalForm(g={}){openForm({title:g.id?'Edit goal':'New goal',vals:{...g,m
   if(g.id)Object.assign(S.goals.find(x=>x.id===g.id),{title:v.title,why:v.why,due:v.due,ms});else S.goals.unshift({id:uid(),title:v.title,why:v.why,due:v.due,ms,pct:0});save()},del:g.id?()=>{S.goals=S.goals.filter(x=>x.id!==g.id);save()}:null})}
 function eventForm(e={}){openForm({title:e.id?'Edit entry':'Add to calendar',vals:{date:ui.sel,...e},fields:[{k:'title',label:'What\'s happening?',req:1,ph:'Exam, movie night, birthday…'},{k:'date',label:'Date',t:'date',req:1},{k:'time',label:'Time (optional)',t:'time'},{k:'note',label:'Note',t:'textarea',mic:1},{k:'repeat',label:'Repeat',t:'select',o:[['','Does not repeat'],['yearly','Every year (birthdays)']]}],
  save:v=>{if(e.id)Object.assign(S.events.find(x=>x.id===e.id),v);else S.events.push({id:uid(),...v});ui.sel=v.date;save()},del:e.id?()=>{S.events=S.events.filter(x=>x.id!==e.id);save()}:null})}
-function diaryForm(d){const cur=S.diary[d]||{};openForm({title:'📖 '+(d===today()?'Today':nice(d)),vals:cur,fields:[{k:'mood',label:'How was it?',t:'mood'},{k:'tags',label:'What did you do? (tap any)',t:'tags',o:TAGS},{k:'high',label:'Best moment of the day',ph:'One line is plenty'},{k:'note',label:'Anything else? (type or speak)',t:'textarea',mic:1}],
- save:v=>{if(!v.mood&&!v.tags.length&&!v.high&&!v.note){delete S.diary[d]}else S.diary[d]=v;save()},del:cur.mood||cur.note?()=>{delete S.diary[d];save()}:null})}
+function diaryForm(d,id){const cur=id?(S.log.find(e=>e.id===id)||{}):{};openForm({title:'📖 '+(d===today()?'Today':nice(d))+(id?'':' · new entry'),vals:cur,fields:[{k:'mood',label:'How was it?',t:'mood'},{k:'tags',label:'What did you do? (tap any)',t:'tags',o:TAGS},{k:'high',label:'Best moment',ph:'One line is plenty'},{k:'note',label:'Anything else? (type or speak)',t:'textarea',mic:1}],
+ save:v=>{const empty=!v.mood&&!v.tags.length&&!v.high&&!v.note;if(id){if(empty)S.log=S.log.filter(x=>x.id!==id);else Object.assign(S.log.find(x=>x.id===id),v)}else if(!empty)S.log.push({id:uid(),date:d,time:new Date().toTimeString().slice(0,5),...v});save()},del:id?()=>{S.log=S.log.filter(x=>x.id!==id);save()}:null})}
 function habitForm(h={}){openForm({title:h.id?'Edit habit':'New habit',vals:h,fields:[{k:'emoji',label:'Emoji',ph:'🌱'},{k:'name',label:'Habit',req:1}],
  save:v=>{if(h.id)Object.assign(S.habits.find(x=>x.id===h.id),v);else S.habits.push({id:uid(),...v});save()},del:h.id?()=>{S.habits=S.habits.filter(x=>x.id!==h.id);save()}:null})}
 function movieForm(m={}){openForm({title:m.id?'Edit movie':'Add movie / show',vals:m,fields:[{k:'title',label:'Title',req:1},{k:'status',label:'Status',t:'select',o:[['want','Want to watch'],['watched','Watched']],def:'want'},{k:'rating',label:'Rating (1-5, if watched)',t:'number'},{k:'note',label:'Thoughts',t:'textarea',mic:1}],
@@ -370,17 +374,18 @@ calendar(){const y=ui.cy,m=ui.cm;const first=new Date(y,m,1);const off=(first.ge
  for(let i=0;i<off;i++)cells.push(null);for(let d=1;d<=dim;d++)cells.push(fmt(new Date(y,m,d)));
  const t=today();const sel=ui.sel;
  return `<h1>Calendar</h1><p class="sub">Tap a day to add things for the future.</p><div class="grid g2" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr))"><div class="card"><div class="row between" style="margin-bottom:10px"><button class="circ" data-a="cp" aria-label="Previous month">‹</button><b>${first.toLocaleDateString(undefined,{month:'long',year:'numeric'})}</b><button class="circ" data-a="cn" aria-label="Next month">›</button></div>
- <div class="cal">${['M','T','W','T','F','S','S'].map(x=>`<div class="h">${x}</div>`).join('')}${cells.map(d=>{if(!d)return '<div></div>';const ev=eventsOn(d).length,di=S.diary[d],tk=S.tasks.some(x=>!x.done&&x.due===d);return `<button class="day ${d===t?'today':''} ${d===sel?'sel':''}" data-a="cs" data-d="${d}">${+d.slice(8)}<span class="dots">${ev?'<i></i>':''}${tk?'<i class="t"></i>':''}${di?'<i class="d"></i>':''}</span></button>`}).join('')}</div>
+ <div class="cal">${['M','T','W','T','F','S','S'].map(x=>`<div class="h">${x}</div>`).join('')}${cells.map(d=>{if(!d)return '<div></div>';const ev=eventsOn(d).length,di=S.log.some(e=>e.date===d),tk=S.tasks.some(x=>!x.done&&x.due===d);return `<button class="day ${d===t?'today':''} ${d===sel?'sel':''}" data-a="cs" data-d="${d}">${+d.slice(8)}<span class="dots">${ev?'<i></i>':''}${tk?'<i class="t"></i>':''}${di?'<i class="d"></i>':''}</span></button>`}).join('')}</div>
  <p class="sub" style="font-size:12px;margin:10px 0 0">● event &nbsp; <span style="color:#e0a96d">●</span> task due &nbsp; <span style="color:var(--accent)">●</span> diary</p></div>
  <div class="card"><div class="row between"><h2 style="margin:0">${nice(sel)}</h2><button class="btn sm" data-a="ne">+ Add</button></div>
  ${eventsOn(sel).map(e=>`<div class="item"><div class="t" data-a="ee" data-id="${e.id}" style="cursor:pointer">${esc(e.title)}<small>${esc(e.time||'All day')}${e.repeat?' · yearly':''} ${esc(e.note||'')}</small></div></div>`).join('')}
  ${S.tasks.filter(x=>!x.done&&x.due===sel).map(x=>`<div class="item"><div class="t">✅ ${esc(x.text)}</div></div>`).join('')}
- ${S.diary[sel]?`<div class="item"><div class="t" data-a="diary" data-d="${sel}" style="cursor:pointer">📖 Diary: ${MOODS[(S.diary[sel].mood||3)-1]} ${esc(S.diary[sel].high||'')}</div></div>`:`<div style="margin-top:10px"><button class="btn sm ghost" data-a="diary" data-d="${sel}">📖 Diary for this day</button></div>`}</div></div>`},
-diary(){const t=today();const days=[];for(let i=13;i>=0;i--)days.push(addDays(t,-i));const keys=Object.keys(S.diary).sort().reverse();
- return `<h1>Diary</h1><p class="sub">No long writing needed. Tap your mood, tap what you did, or just talk.</p>
- <div class="card" style="margin-bottom:16px"><div class="row between"><h2 style="margin:0">${S.diary[t]?'Update today':'How was today?'}</h2><button class="btn" data-a="diary" data-d="${t}">📖 ${S.diary[t]?'Edit':'Log today'}</button></div></div>
- <div class="card" style="margin-bottom:16px"><h2>Mood, last 14 days</h2><div class="mbars">${days.map(d=>`<i title="${d}" style="height:${S.diary[d]&&S.diary[d].mood?S.diary[d].mood*20:4}%;${S.diary[d]&&S.diary[d].mood?'':'opacity:.25'}"></i>`).join('')}</div></div>
- <div class="card"><h2>Past entries</h2>${keys.length?keys.map(d=>{const e=S.diary[d];return `<div class="item" data-a="diary" data-d="${d}" style="cursor:pointer"><div style="font-size:26px">${MOODS[(e.mood||3)-1]}</div><div class="t"><b>${nice(d)}</b>${e.high?`<small>⭐ ${esc(e.high)}</small>`:''}<small>${esc((e.tags||[]).join(' · '))}</small>${e.note?`<small>${esc(e.note.slice(0,140))}</small>`:''}</div></div>`}).join(''):'<div class="empty">Your first entry will show up here</div>'}</div>`},
+ ${S.log.filter(e=>e.date===sel).map(e=>`<div class="item"><div class="t" data-a="ed" data-id="${e.id}" style="cursor:pointer">📖 ${MOODS[(e.mood||3)-1]} ${e.time||''} ${esc(e.high||'')}</div></div>`).join('')}<div style="margin-top:10px"><button class="btn sm ghost" data-a="diary" data-d="${sel}">📖 Add diary entry</button></div></div></div>`},
+diary(){const t=today();const days=[];for(let i=13;i>=0;i--)days.push(addDays(t,-i));
+ const all=S.log.slice().sort((x,y)=>(y.date+(y.time||'')).localeCompare(x.date+(x.time||''))),tn=S.log.filter(e=>e.date===t).length;
+ return `<h1>Diary</h1><p class="sub">No long writing needed. Tap your mood, tap what you did, or just talk. Add as many entries as you like each day.</p>
+ <div class="card" style="margin-bottom:16px"><div class="row between"><h2 style="margin:0">${tn?'Today · '+tn+(tn>1?' entries':' entry'):'How was today?'}</h2><button class="btn" data-a="diary" data-d="${t}">+ New entry</button></div></div>
+ <div class="card" style="margin-bottom:16px"><h2>Mood, last 14 days</h2><div class="mbars">${days.map(d=>{const m=dayMood(d);return `<i title="${d}" style="height:${m?m*20:4}%;${m?'':'opacity:.25'}"></i>`}).join('')}</div></div>
+ <div class="card"><h2>Past entries</h2>${all.length?all.map(e=>`<div class="item" data-a="ed" data-id="${e.id}" style="cursor:pointer"><div style="font-size:26px">${MOODS[(e.mood||3)-1]}</div><div class="t"><b>${nice(e.date)}${e.time?' · '+e.time:''}</b>${e.high?`<small>⭐ ${esc(e.high)}</small>`:''}<small>${esc((e.tags||[]).join(' · '))}</small>${e.note?`<small>${esc(e.note.slice(0,140))}</small>`:''}</div></div>`).join(''):'<div class="empty">Your first entry will show up here</div>'}</div>`},
 habits(){const t=today();const days=[];for(let i=6;i>=0;i--)days.push(addDays(t,-i));
  return `<h1>Habits</h1><p class="sub">Tiny daily wins add up. Tap ✕ to delete a habit, or its name to edit it.</p><button class="btn" data-a="nh" style="margin-bottom:16px">+ New habit</button><div class="card"><div class="hgrid"><span></span>${days.map(d=>`<span class="hd">${parse(d).toLocaleDateString(undefined,{weekday:'narrow'})}<br>${+d.slice(8)}</span>`).join('')}
  ${S.habits.map(h=>`<div data-a="eh" data-id="${h.id}" style="cursor:pointer"><span style="display:flex;align-items:center;gap:6px">${esc(h.emoji||'')} ${esc(h.name)}<button class="icon-btn" data-a="dh" data-id="${h.id}" aria-label="Delete habit" style="font-size:12px;padding:2px 6px;margin-left:auto">✕</button></span><small class="sub" style="display:block;margin:0">🔥 ${habitStreak(h.id)} day streak</small></div>${days.map(d=>`<button class="hb ${(S.hlog[d]||[]).includes(h.id)?'on':''}" data-a="hb" data-id="${h.id}" data-d="${d}"></button>`).join('')}`).join('')}</div></div>`},
@@ -404,7 +409,7 @@ insights(){const d7=lastDays(7),d14=lastDays(14),L7=d7.map(wd);
  const sum=a=>a.reduce((p,c)=>p+c,0),empty=t=>`<div class="empty">${t}</div>`;
  const done=d7.map(d=>S.tasks.filter(x=>x.done&&x.doneAt===d).length),foc=d7.map(d=>S.focus[d]||0);
  const hab=d7.map(d=>{const ids=S.habits.map(h=>h.id),n=(S.hlog[d]||[]).filter(i=>ids.includes(i)).length;return ids.length?Math.round(n/ids.length*100):0});
- const mood=d14.map(d=>S.diary[d]&&S.diary[d].mood?+S.diary[d].mood:null),mv=mood.filter(Boolean);
+ const mood=d14.map(d=>dayMood(d)||null),mv=mood.filter(Boolean);
  const open=S.tasks.filter(x=>!x.done).length,dn=S.tasks.length-open;
  const cc=S.hobs.some(h=>h.kind==='chess'),g=cc?S.chess:[],w=g.filter(x=>x.result==='W').length,l=g.filter(x=>x.result==='L').length,dr=g.length-w-l;
  const rs=g.filter(x=>x.rating).slice().reverse().map(x=>+x.rating);
@@ -451,6 +456,7 @@ const A={
  cp(){ui.cm--;if(ui.cm<0){ui.cm=11;ui.cy--}render()},cn(){ui.cm++;if(ui.cm>11){ui.cm=0;ui.cy++}render()},cs(d){ui.sel=d.d;render()},
  ne(){eventForm({date:ui.sel})},ee(d){eventForm(S.events.find(x=>x.id===d.id))},
  diary(d){diaryForm(d.d)},
+ ed(d){const e=S.log.find(x=>x.id===d.id);if(e)diaryForm(e.date,e.id)},
  hb(d){const a=S.hlog[d.d]=S.hlog[d.d]||[];const i=a.indexOf(d.id);i>-1?a.splice(i,1):a.push(d.id);save()},nh(){habitForm()},eh(d){habitForm(S.habits.find(x=>x.id===d.id))},
  ht(d){ui.hob=d.k;render()},nm(){movieForm()},em(d){movieForm(S.movies.find(x=>x.id===d.id))},nmu(){musicForm()},emu(d){musicForm(S.music.find(x=>x.id===d.id))},nc(){chessForm()},ec(d){chessForm(S.chess.find(x=>x.id===d.id))},
  tgo(){if(T.run){clearInterval(T.iv);T.run=false}else{T.run=true;T.iv=setInterval(tick,1000)}render()},
